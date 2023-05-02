@@ -1,0 +1,97 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model User {
+    id          String   @id @default(cuid())
+    name        String
+    socialName  String
+    isAdmin     Boolean  @default(false)
+    companyName String
+    email       String   @unique
+    pass        String
+    state       String
+    status      Boolean? @default(true)
+
+    dpo         Dpo[]
+    dataMapping dataMapping[]
+    sector      Sector[]
+    quiz        Quiz[]
+
+    @@map("user")
+}
+
+model Dpo {
+    id            String   @id @default(cuid())
+    name          String
+    socialName    String
+    actual        Boolean  @default(true)
+    naturalPerson Boolean
+    email         String
+    createdAt     DateTime @default(now())
+    userId        String
+    status        Boolean? @default(true)
+
+    dataMapping dataMapping[]
+
+    user User @relation(fields: [userId], references: [id])
+
+    @@map("dpo")
+}
+
+model dataMapping {
+    id            String   @id @default(cuid())
+    dpoId         String
+    userId        String
+    sectorId      String
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime
+    tagName       String
+    sourceData    String
+    colletedData  String
+    reasonData    String
+    howStorage    String
+    securityData  String
+    deadlineData  String
+    justification String
+    underAgeData  Boolean
+    sensitiveData Boolean
+    controller    String
+    status        Boolean? @default(true)
+
+    user   User    @relation(fields: [userId], references: [id])
+    dpo    Dpo     @relation(fields: [dpoId], references: [id])
+    sector Sector? @relation(fields: [sectorId], references: [id])
+
+    @@map("data_mapping")
+}
+
+model Sector {
+    id      String   @id @default(cuid())
+    userId  String
+    tagName String
+    status  Boolean? @default(true)
+
+    dataMapping dataMapping[]
+    user        User          @relation(fields: [userId], references: [id])
+
+    @@map("sector")
+}
+
+model Quiz {
+    id        String   @id @default(cuid())
+    result    String
+    answers   String
+    userId    String
+    createdAt DateTime @default(now())
+    status    Boolean? @default(true)
+
+    user User @relation(fields: [userId], references: [id])
+
+    @@map("quiz")
+}
