@@ -6,10 +6,12 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "build:docker": "docker build -t deploytestbackend .",
+    "start:docker": "docker run -p 3000:3000 deploytestbackend",
     "prebuild": "rimraf dist",
-    "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
+    "build": "tsc",
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
