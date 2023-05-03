@@ -1,7 +1,7 @@
 FROM node:14
 
 # Define a pasta de trabalho dentro do container
-WORKDIR /usr/src/app
+WORKDIR /usr/src/main.ts
 
 # Copia o arquivo package.json e o package-lock.json para dentro do container
 COPY package*.json ./
