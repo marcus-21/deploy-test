@@ -1,7 +1,7 @@
 FROM node:14
 
 # Define a pasta de trabalho dentro do container
-WORKDIR /usr/src/main.ts
+WORKDIR /usr/src/app
 
 # Copia o arquivo package.json e o package-lock.json para dentro do container
 COPY package*.json ./
@@ -23,4 +23,4 @@ EXPOSE 3000
 ENV DATABASE_URL postgres://nodedeploy_server_user:135faO0enPAKSmstvSAdly0mFwknwW33@dpg-ch8fjqtgk4q7lmq4c8lg-a/nodedeploy_server
 
 # Executa o comando para iniciar o servidor
-CMD [ "npm", "run", "start:prod" ]
+CMD [ "node", "dist/main" ]
