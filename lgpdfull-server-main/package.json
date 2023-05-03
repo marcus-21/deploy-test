@@ -5,9 +5,10 @@
   "author": "",
   "private": true,
   "license": "UNLICENSED",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
-    "build:docker": "docker build -t deploytestbackend .",
-    "start:docker": "docker run -p 3000:3000 deploytestbackend",
     "prebuild": "rimraf dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
